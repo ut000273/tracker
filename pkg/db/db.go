@@ -1,12 +1,9 @@
 package db
 
 import (
-	"path/filepath"
-
 	"sync"
-
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var (
@@ -23,7 +20,7 @@ var (
 func Init(dbDir string) {
 	_dbDir = dbDir
 	var err error
-	CommonDB, err = gorm.Open("sqlite3", filepath.Join(dbDir, "common.db"))
+	CommonDB, err = gorm.Open("mysql","root:a@tcp(127.0.0.1:32768)/common?parseTime=true")
 	if err != nil {
 		panic(err)
 	}
@@ -83,7 +80,7 @@ func DeleteDBHandler(version string) error {
 }
 
 func doSetDBHandler(version string) error {
-	db, err := gorm.Open("sqlite3", filepath.Join(_dbDir, version+".db"))
+	db, err := gorm.Open("mysql", "root:a@tcp(127.0.0.1:32768)/v20?parseTime=true")
 	if err != nil {
 		return err
 	}
