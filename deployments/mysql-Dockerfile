@@ -1,0 +1,5 @@
+FROM golang
+ADD . src/github.com/deepin-cve/tarcker/
+WORKDIR  src/github.com/deepin-cve/tarcker/
+RUN make build
+CMD ["./deepin_cve_tracker","-c configs/config.yaml","-d"]
