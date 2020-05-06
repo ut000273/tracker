@@ -1,9 +1,9 @@
 package db
 
 import (
-	"sync"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"sync"
 )
 
 var (
@@ -80,7 +80,8 @@ func DeleteDBHandler(version string) error {
 }
 
 func doSetDBHandler(version string) error {
-	db, err := gorm.Open("mysql", "root:a@tcp(127.0.0.1:32768)/v20?parseTime=true")
+	sqlcon := "root:a@tcp(127.0.0.1:32768)/"+version+"?parseTime=true"
+	db, err := gorm.Open("mysql", sqlcon)
 	if err != nil {
 		return err
 	}
