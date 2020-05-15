@@ -8,7 +8,7 @@ import (
 
 var (
 	// CommonDB session, version, log db handler
-	CommonDB *gorm.DB
+	db *gorm.DB
 
 	cveDBSet     = make(map[string]*gorm.DB)
 	cveSetLocker sync.Mutex
@@ -20,20 +20,20 @@ var (
 func Init(dbDir string) {
 	_dbDir = dbDir
 	var err error
-	CommonDB, err = gorm.Open("mysql","root:a@tcp(127.0.0.1:32768)/common?parseTime=true")
+	db, err = gorm.Open("mysql","root:a@tcp(127.0.0.1:32768)/cve_bugs?parseTime=true")
 	if err != nil {
 		panic(err)
 	}
 
-	CommonDB.AutoMigrate(&Session{})
-	CommonDB.AutoMigrate(&Version{})
-	CommonDB.AutoMigrate(&Log{})
+	db.AutoMigrate(&Session{})
+	db.AutoMigrate(&Version{})
+	db.AutoMigrate(&Log{})
 	// TODO(jouyouyun): add to configuration
-	CommonDB.DB().SetMaxIdleConns(10)
-	CommonDB.DB().SetMaxOpenConns(100)
+	db.DB().SetMaxIdleConns(10)
+	db.DB().SetMaxOpenConns(100)
 
 	var verList VersionList
-	err = CommonDB.Find(&verList).Error
+	err = db.Find(&verList).Error
 	if err != nil {
 		panic(err)
 	}
@@ -80,17 +80,24 @@ func DeleteDBHandler(version string) error {
 }
 
 func doSetDBHandler(version string) error {
-	sqlcon := "root:a@tcp(127.0.0.1:32768)/"+version+"?parseTime=true"
+	/*
+	sqlcon := "root:a@tcp(127.0.0.1:32780)/"+version+"?parseTime=true"
 	db, err := gorm.Open("mysql", sqlcon)
 	if err != nil {
 		return err
 	}
-	db.AutoMigrate(&CVE{})
-	db.AutoMigrate(&Package{})
-	db.AutoMigrate(&CVEScore{})
+	*/
+
+	db.AutoMigrate(&CVE{VersionId: "v15"})
+	db.AutoMigrate(&CVE{VersionId: "v20"})
+	db.AutoMigrate(&Package{VersionId: "v15"})
+	db.AutoMigrate(&Package{VersionId: "v20"})
+	db.AutoMigrate(&CVEScore{VersionId: "v15"})
+	db.AutoMigrate(&CVEScore{VersionId: "v20"})
 	// TODO(jouyouyun): add to configuration
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
 	cveDBSet[version] = db
 	return nil
 }
+

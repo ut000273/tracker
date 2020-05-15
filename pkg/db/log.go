@@ -85,12 +85,12 @@ func (list LogList) fix() {
 
 // Create insert log
 func (l *Log) Create() error {
-	return CommonDB.Create(l).Error
+	return db.Create(l).Error
 }
 
 // QueryLogList query log list, available params: operator, target
 func QueryLogList(params map[string]interface{}, offset, limit int) (int64, LogList, error) {
-	var sql = CommonDB.Model(&Log{})
+	var sql = db.Model(&Log{})
 	if v, ok := params["operator"]; ok {
 		sql = sql.Where("`operator` = ?", v)
 	}

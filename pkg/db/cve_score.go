@@ -8,6 +8,15 @@ type CVEScore struct {
 	ScoreSeverity string `json:"score_severity"`
 	CVSS          string `json:"cvss"`
 	Score               float64 `json:"score"`
+	VersionId string `json:"version_id"`
+}
+func (u CVEScore) TableName() string {
+	fmt.Println("cve_score:",u.VersionId)
+	if u.VersionId == "v15" {
+		return "v15_cve_scores"
+	} else {
+		return "v20_cve_scores"
+	}
 }
 
 // CVEScoreList cve score list

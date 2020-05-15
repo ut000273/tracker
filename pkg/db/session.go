@@ -22,12 +22,12 @@ const (
 // Create save session
 func (s *Session) Create() error {
 	s.CreatedAt = time.Now()
-	return CommonDB.Create(s).Error
+	return db.Create(s).Error
 }
 
 // Get get session by token
 func (s *Session) Get() error {
-	return CommonDB.Where("`token` = ?", s.Token).First(s).Error
+	return db.Where("`token` = ?", s.Token).First(s).Error
 }
 
 // Expired token whether expired
@@ -37,7 +37,7 @@ func (s *Session) Expired() bool {
 
 // Delete delete token
 func (s *Session) Delete() error {
-	return CommonDB.Where("`token` = ?", s.Token).Delete(&Session{}).Error
+	return db.Where("`token` = ?", s.Token).Delete(&Session{}).Error
 }
 
 // SessionClean clean expired session
@@ -47,7 +47,7 @@ func SessionClean() error {
 	var length = 100
 	for length == limit {
 		var sessions []*Session
-		err := CommonDB.Offset(offset).Limit(limit).Find(&sessions).Error
+		err := db.Offset(offset).Limit(limit).Find(&sessions).Error
 		if err != nil {
 			return err
 		}
@@ -55,7 +55,7 @@ func SessionClean() error {
 			if !session.Expired() {
 				continue
 			}
-			CommonDB.Where("`token` = ?", session.Token).Delete(&Session{})
+			db.Where("`token` = ?", session.Token).Delete(&Session{})
 		}
 		length = len(sessions)
 		offset += len(sessions)

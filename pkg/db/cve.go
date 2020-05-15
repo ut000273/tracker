@@ -132,7 +132,19 @@ type CVE struct {
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"-"`
+	VersionId string `gorm:"version_id"`
 }
+
+
+func (u CVE) TableName() string {
+	fmt.Println("cve:",u.VersionId)
+	if u.VersionId == "v15" {
+		return "v15_cves"
+	} else {
+		return "v20_cves"
+	}
+}
+
 
 // CVEList an array for CVE
 type CVEList []*CVE

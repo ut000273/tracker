@@ -31,25 +31,25 @@ func (list VersionList) Swap(i, j int) {
 
 // Create insert version
 func (v *Version) Create() error {
-	return CommonDB.Create(v).Error
+	return db.Create(v).Error
 }
 
 // Get query by version
 func (v *Version) Get() error {
-	return CommonDB.Where("`version` = ?", v.Version).First(v).Error
+	return db.Where("`version` = ?", v.Version).First(v).Error
 }
 
 // Update update
 func (v *Version) Update() error {
 	var tmp Version
-	err := CommonDB.Where("`version` = ?", v.Version).First(&tmp).Error
+	err := db.Where("`version` = ?", v.Version).First(&tmp).Error
 	if err != nil {
 		return err
 	}
 	if v.Equal(&tmp) {
 		return nil
 	}
-	return CommonDB.Save(v).Error
+	return db.Save(v).Error
 }
 
 // Equal compare
@@ -62,13 +62,13 @@ func (v *Version) Equal(target *Version) bool {
 
 // Delete delete version
 func (v *Version) Delete() error {
-	return CommonDB.Where("`version` = ?", v.Version).Delete(&Version{}).Error
+	return db.Where("`version` = ?", v.Version).Delete(&Version{}).Error
 }
 
 // QueryVersionList return version list
 func QueryVersionList() (VersionList, error) {
 	var verList VersionList
-	err := CommonDB.Find(&verList).Error
+	err := db.Find(&verList).Error
 	if err != nil {
 		return nil, err
 	}
