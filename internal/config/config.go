@@ -20,7 +20,6 @@ type Config struct {
 		UserSearch  string `yaml:"user_search"`
 		GroupSearch string `yaml:"group_search"`
 	} `yaml:"ldap"`
-	DBDir string `yaml:"db_dir"`
 }
 
 const (

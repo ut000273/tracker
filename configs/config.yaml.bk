@@ -1,0 +1,11 @@
+server:
+  host: '0.0.0.0'
+  port: 10808
+ldap:
+  host: '0.ldap.sndu.cn'
+  port: 636
+  dn: 'cn=cms,ou=manage,dc=sndu,dc=cn'
+  password: '4w#WgAv9Q%'
+  user_search: 'ou=people,dc=sndu,dc=cn'
+  group_search: 'cn=logs,ou=group,dc=sndu,dc=cn'
+db_dir: 'data'

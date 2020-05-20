@@ -3,13 +3,10 @@ package v0
 import (
 	"fmt"
 	"net/http"
-	"path/filepath"
 	"strings"
 
-	"github.com/deepin-cve/tracker/internal/config"
 	"github.com/deepin-cve/tracker/pkg/db"
 	"github.com/deepin-cve/tracker/pkg/fetcher"
-	"github.com/deepin-cve/tracker/pkg/packages"
 	"github.com/gin-gonic/gin"
 )
 
@@ -114,7 +111,7 @@ func fetchDebian(c *gin.Context) {
 	c.String(http.StatusAccepted, "")
 }
 
-func initPackages(c *gin.Context) {
+/*func initPackages(c *gin.Context) {
 	version := c.Param("version")
 	if len(version) == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -164,7 +161,7 @@ func initPackages(c *gin.Context) {
 	})
 
 	c.String(http.StatusAccepted, "")
-}
+}*/
 
 func fetchScore(c *gin.Context) {
 	version := c.Param("version")

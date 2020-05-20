@@ -12,13 +12,10 @@ var (
 
 	cveDBSet     = make(map[string]*gorm.DB)
 	cveSetLocker sync.Mutex
-
-	_dbDir string
 )
 
 // Init init db
-func Init(dbDir string) {
-	_dbDir = dbDir
+func Init() {
 	var err error
 	db, err = gorm.Open("mysql","root:a@tcp(127.0.0.1:32768)/cve_bugs?parseTime=true")
 	if err != nil {
@@ -47,7 +44,7 @@ func Init(dbDir string) {
 }
 
 // GetDBHandler return db handler by version
-func GetDBHandler(version string) *gorm.DB {
+func GetDBHandler(version string) (*gorm.DB) {
 	handler, ok := cveDBSet[version]
 	if !ok {
 		return nil
@@ -80,20 +77,10 @@ func DeleteDBHandler(version string) error {
 }
 
 func doSetDBHandler(version string) error {
-	/*
-	sqlcon := "root:a@tcp(127.0.0.1:32780)/"+version+"?parseTime=true"
-	db, err := gorm.Open("mysql", sqlcon)
-	if err != nil {
-		return err
-	}
-	*/
 
-	db.AutoMigrate(&CVE{VersionId: "v15"})
-	db.AutoMigrate(&CVE{VersionId: "v20"})
-	db.AutoMigrate(&Package{VersionId: "v15"})
-	db.AutoMigrate(&Package{VersionId: "v20"})
-	db.AutoMigrate(&CVEScore{VersionId: "v15"})
-	db.AutoMigrate(&CVEScore{VersionId: "v20"})
+	db.AutoMigrate(&CVE{VersionId: version})
+	db.AutoMigrate(&Package{VersionId: version})
+	db.AutoMigrate(&CVEScore{VersionId: version})
 	// TODO(jouyouyun): add to configuration
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)

@@ -62,7 +62,7 @@ func (list CVEScoreList) UpdateCVE(version string) error {
 			continue
 		}
 
-		err := tx.Model(&CVE{}).Where("`id` = ?", score.ID).Updates(map[string]interface{}{
+		err := tx.Model(&CVE{VersionId: version}).Where("`id` = ?", score.ID).Updates(map[string]interface{}{
 			"cvss":  score.CVSS,
 			"score": score.Score,
 		}).Error

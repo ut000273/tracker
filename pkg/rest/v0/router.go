@@ -14,9 +14,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const (
-	defaultPageCount = 15
-)
 
 // Route start gin router
 func Route(addr string, debug bool) error {
@@ -45,7 +42,7 @@ func Route(addr string, debug bool) error {
 
 	tools := v0.Group("tools")
 	tools.POST("/debian/:version", checkAccessToken, fetchDebian)
-	tools.POST("/package/:version", checkAccessToken, initPackages)
+	//tools.POST("/package/:version", checkAccessToken, initPackages)
 	tools.POST("/score/:version", checkAccessToken, fetchScore)
 
 	return eng.Run(addr)
@@ -181,7 +178,7 @@ func queryLogList(c *gin.Context) {
 
 	pageStr := c.DefaultQuery("page", "1")
 	page, _ := strconv.Atoi(pageStr)
-	countStr := c.DefaultQuery("count", fmt.Sprint(defaultPageCount))
+	countStr := c.DefaultQuery("count", "15")
 	count, _ := strconv.Atoi(countStr)
 
 	total, list, err := db.QueryLogList(params, (page-1)*count, count)

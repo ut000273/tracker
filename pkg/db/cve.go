@@ -137,7 +137,6 @@ type CVE struct {
 
 
 func (u CVE) TableName() string {
-	fmt.Println("cve:",u.VersionId)
 	if u.VersionId == "v15" {
 		return "v15_cves"
 	} else {
@@ -210,7 +209,7 @@ func NewCVE(id, version string) (*CVE, error) {
 	}
 
 	var cve CVE
-	err := handler.Where("`id` = ?", id).First(&cve).Error
+	err := handler.Table((version+"_cves")).Where("`id` = ?", id).First(&cve).Error
 	if err != nil {
 		return nil, err
 	}

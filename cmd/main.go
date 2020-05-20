@@ -19,7 +19,7 @@ func main() {
 	flag.Parse()
 
 	var c = config.GetConfig(*conf)
-	db.Init(c.DBDir)
+	db.Init()
 
 	go func() {
 		for {
