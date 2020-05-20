@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	conf  = flag.String("c", "/etc/deepin-cve-tracker/config.yaml", "the configuration filepath")
+	conf  = flag.String("c", "./configs/config.yaml", "the configuration filepath")
 	debug = flag.Bool("d", false, "enable debug mode")
 )
 

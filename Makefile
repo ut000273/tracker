@@ -5,6 +5,7 @@ build:
 
 docker:
 	docker build -t deepin-cve -f deployments/mysql-Dockerfile .
+	docker run -it -d -p 10808:10808  --name tracker  deepin-cve:latest ./deepin_cve_tracker
 
 
 clean:
