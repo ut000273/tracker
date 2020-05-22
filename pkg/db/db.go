@@ -15,9 +15,9 @@ var (
 )
 
 // Init init db
-func Init() {
+func Init(host  string) {
 	var err error
-	db, err = gorm.Open("mysql","root:a@tcp(10.20.32.178:32768)/cve_bugs?parseTime=true")
+	db, err = gorm.Open("mysql","root:a@tcp("+host+":32680)/cve_bugs?parseTime=true")
 	if err != nil {
 		panic(err)
 	}

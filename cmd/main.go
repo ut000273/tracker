@@ -13,13 +13,15 @@ import (
 var (
 	conf  = flag.String("c", "./configs/config.yaml", "the configuration filepath")
 	debug = flag.Bool("d", false, "enable debug mode")
+	host = flag.String("h","10.20.32.240","host")
 )
 
 func main() {
 	flag.Parse()
 
 	var c = config.GetConfig(*conf)
-	db.Init()
+	fmt.Println(c.Server.Host)
+	db.Init(*host)
 
 	go func() {
 		for {
