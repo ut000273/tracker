@@ -20,7 +20,6 @@ func main() {
 	flag.Parse()
 
 	var c = config.GetConfig(*conf)
-	fmt.Println(c.Server.Host)
 	db.Init(*host)
 
 	go func() {

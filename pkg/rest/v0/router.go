@@ -81,7 +81,7 @@ func login(c *gin.Context) {
 		return
 	}
 
-	ldapc := config.GetConfig("").LDAP
+	ldapc := config.GetConfig("./configs/config.yaml").LDAP
 	cli, err := ldap.NewClient(ldapc.Host, ldapc.Port, ldapc.Dn, ldapc.Password, ldapc.UserSearch)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
