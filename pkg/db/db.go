@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"sync"
@@ -16,6 +17,7 @@ var (
 
 // Init init db
 func Init(host  string) {
+	fmt.Println("host is : ",host)
 	var err error
 	db, err = gorm.Open("mysql","root:a@tcp("+host+":32680)/cve_bugs?parseTime=true")
 	if err != nil {
