@@ -1,7 +1,6 @@
 package db
 
 import (
-	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"sync"
@@ -17,7 +16,6 @@ var (
 
 // Init init db
 func Init(host  string) {
-	fmt.Println("host is : ",host)
 	var err error
 	db, err = gorm.Open("mysql","root:a@tcp("+host+":32680)/cve_bugs?parseTime=true")
 	if err != nil {
@@ -84,7 +82,7 @@ func doSetDBHandler(version string) error {
 	db.AutoMigrate(&Package{VersionId: version})
 	db.AutoMigrate(&CVEScore{VersionId: version})
 	// TODO(jouyouyun): add to configuration
-	db.DB().SetMaxIdleConns(10)
+	db.DB().SetMaxIdleConns(0)
 	db.DB().SetMaxOpenConns(100)
 	cveDBSet[version] = db
 	return nil

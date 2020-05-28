@@ -47,7 +47,7 @@ func SessionClean() error {
 	var length = 100
 	for length == limit {
 		var sessions []*Session
-		err := db.Offset(offset).Limit(limit).Find(&sessions).Debug().Error
+		err := db.Offset(offset).Limit(limit).Find(&sessions).Error
 		if err != nil {
 			return err
 		}

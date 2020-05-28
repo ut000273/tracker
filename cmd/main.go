@@ -3,11 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"time"
-
 	"github.com/deepin-cve/tracker/internal/config"
 	"github.com/deepin-cve/tracker/pkg/db"
 	v0 "github.com/deepin-cve/tracker/pkg/rest/v0"
+	"time"
 )
 
 var (
