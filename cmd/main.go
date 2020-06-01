@@ -11,7 +11,7 @@ import (
 
 var (
 	conf  = flag.String("c", "./configs/config.yaml", "the configuration filepath")
-	debug = flag.Bool("d", false, "enable debug mode")
+	debug = flag.Bool("d", true, "enable debug mode")
 	host = flag.String("h","10.20.32.240","host")
 )
 

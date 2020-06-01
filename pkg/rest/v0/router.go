@@ -17,9 +17,10 @@ import (
 
 // Route start gin router
 func Route(addr string, debug bool) error {
-	if debug {
-		gin.SetMode(gin.DebugMode)
+	if !debug {
+		gin.SetMode(gin.ReleaseMode)
 	}
+
 	var eng = gin.Default()
 	v0 := eng.Group("v0", cors())
 	v0.GET("/logs", queryLogList)
