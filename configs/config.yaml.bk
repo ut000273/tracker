@@ -8,4 +8,3 @@ ldap:
   password: '4w#WgAv9Q%'
   user_search: 'ou=people,dc=sndu,dc=cn'
   group_search: 'cn=logs,ou=group,dc=sndu,dc=cn'
-db_dir: 'data'
