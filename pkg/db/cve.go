@@ -137,10 +137,10 @@ type CVE struct {
 
 
 func (u CVE) TableName() string {
-	if u.VersionId == "v15" {
-		return "v15_cves"
-	} else {
-		return "v20_cves"
+	if u.VersionId == "camel" {
+		return "camel_cves"
+	} else{
+		return "eagle_cves"
 	}
 }
 

@@ -15,10 +15,10 @@ type Package struct {
 }
 func (u Package) TableName() string {
 	fmt.Println("package:",u.VersionId)
-	if u.VersionId == "v15" {
-		return "v15_packages"
+	if u.VersionId == "camel" {
+		return "camel_packages"
 	} else {
-		return "v20_packages"
+		return "eagle_packages"
 	}
 }
 

@@ -12,10 +12,10 @@ type CVEScore struct {
 }
 func (u CVEScore) TableName() string {
 	fmt.Println("cve_score:",u.VersionId)
-	if u.VersionId == "v15" {
-		return "v15_cve_scores"
+	if u.VersionId == "camel" {
+		return "camel_cve_scores"
 	} else {
-		return "v20_cve_scores"
+		return "eagle_cve_scores"
 	}
 }
 
