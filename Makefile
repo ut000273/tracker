@@ -4,14 +4,14 @@ build:
 	go build -o ${PROG} cmd/main.go
 
 docker:
-	docker run -d --name cve-bugs -p 32680:3306 --restart=always -v /data/db/mariadb:/var/lib/mysql mariadb
-	docker build -t deepin-cve -f deployments/mysql-Dockerfile .
-	docker run -it -d -p 10808:10808 --restart=always  --name tracker  deepin-cve:latest ./deepin_cve_tracker
+	docker run -d --name mysql-cve -p 32680:3306 --restart=always -v /data/db/mariadb:/var/lib/mysql mariadb
+	docker build -t cve-tracker -f deployments/mysql-Dockerfile .
+	docker run -it -d -p 10808:10808 --restart=always  --name tracker  cve-tracker:latest ./deepin_cve_tracker
 
 docker-clean:
-	docker stop tracker cve-bugs
-	docker rm tracker cve-bugs
-	docker image rm deepin-cve
+	docker stop tracker mysql-cve
+	docker rm tracker mysql-cve
+	docker image rm cve-tracker
 
 
 clean:
