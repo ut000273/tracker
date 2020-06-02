@@ -13,13 +13,14 @@ var (
 	conf  = flag.String("c", "./configs/config.yaml", "the configuration filepath")
 	debug = flag.Bool("d", true, "enable debug mode")
 	host = flag.String("h","10.20.32.240","host")
+	pwd = flag.String("p","deepin20200202@..","the password of mysql")
 )
 
 func main() {
 	flag.Parse()
 
 	var c = config.GetConfig(*conf)
-	db.Init(*host)
+	db.Init(*host,*pwd)
 
 	go func() {
 		for {

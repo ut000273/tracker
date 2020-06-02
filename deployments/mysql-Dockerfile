@@ -2,4 +2,4 @@ FROM golang
 ADD . src/github.com/deepin-cve/tarcker/
 WORKDIR  src/github.com/deepin-cve/tarcker/
 RUN make build
-CMD ["./deepin_cve_tracker"]
+CMD ["./deepin_cve_tracker","-h 127.0.0.1","-p a"]
